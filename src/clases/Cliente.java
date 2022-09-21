@@ -12,7 +12,7 @@ import utilidades.Utilidades;
  * @author 2dam
  */
 public class Cliente {
-
+    //atributos
     private int id;
     private String firstName;
     private String lastName;
@@ -24,12 +24,14 @@ public class Cliente {
     private int phone;
     private String email;
 
+    //constructor
     public Cliente() {
     }
 
     /**
      * @return the id
      */
+    //getters y setters
     public int getId() {
         return id;
     }

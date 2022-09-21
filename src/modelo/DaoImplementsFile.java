@@ -5,10 +5,13 @@
  */
 package modelo;
 
+import java.io.File;
+
 /**
  *
  * @author 2dam
  */
 public class DaoImplementsFile {
-    
+    //Creamos el fichero
+    File fich = new File("fich.txt");
 }

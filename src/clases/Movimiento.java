@@ -14,16 +14,18 @@ import utilidades.Utilidades;
  * @author 2dam
  */
 public class Movimiento {
-
+    //atributos
     private int id;
     private LocalDate timeStamp;
     private float cantidad;
     private float balance;
     private String description;
 
+    //constructor
     public Movimiento() {
     }
 
+    //getters y setters
     public int getId() {
         return id;
     }

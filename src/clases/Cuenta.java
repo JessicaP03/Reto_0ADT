@@ -14,7 +14,7 @@ import utilidades.Utilidades;
  * @author 2dam
  */
 public class Cuenta {
-    
+    //atributos
     private int id;
     private String description;
     private float balance;
@@ -22,11 +22,13 @@ public class Cuenta {
     private float beginBalance;
     private LocalDate beginBalanceTime;
     ArrayList<String> accountType;
-
+    
+    //constructor
     public Cuenta() {
         accountType = new ArrayList<String>();
     }
 
+    //setters y getters
     public int getId() {
         return id;
     }
