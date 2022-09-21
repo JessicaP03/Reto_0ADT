@@ -5,10 +5,15 @@
  */
 package modelo;
 
+import java.io.File;
+
 /**
  *
  * @author 2dam
  */
 public class DaoImplementsFile {
+    
+    File fitch = new File("fichero.txt") ; 
+    
     
 }
