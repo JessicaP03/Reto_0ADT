@@ -1,25 +1,47 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- *//*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package main;
+//Implementamos los implementos de Dao
+import java.util.Enumeration;
+import java.util.ResourceBundle;
+import modelo.DaoImplementsBD;
+import modelo.DaoImplementsFile;
+import utilidades.Utilidades;
 
-/**
- *
- * @author 2dam
- */
 public class Aplication {
-
-    /**
-     * @param args the command line arguments
-     */
+    //Creamos las propiedades necesarias para poder llamar al fichero y sus contenidos
+    private ResourceBundle data;
+    private final String BD = "bd_type";
+    private final String File = "file_type";
+    //Creamos este método para detectar si la aplicación se va hacer por ficheros o base de datos
+    public String eleccion(){
+        
+        data = ResourceBundle.getBundle("utilidades.runConfiguration.properties");
+        if (BD.equals(data.getString("bd_type"))){
+            DaoImplementsBD daoBD = new DaoImplementsBD();
+                return daoBD.toString();
+        }else if(File.equals(data.getString("file_type"))){
+            DaoImplementsFile daoFile = new DaoImplementsFile();
+                return daoFile.toString();
+        }
+       return data.toString();
+    }
+    
+    public void leerData(){
+        System.out.println(data);
+    }
+    
+    
     public static void main(String[] args) {
-        // TODO code application logic here
+       /*Aplication metodo = new Aplication();
+       metodo.leerData();*/
+       ResourceBundle fich = ResourceBundle.getBundle("utilidades.runConfiguration");
+       Enumeration <String> keys = fich.getKeys();
+       while (keys.hasMoreElements()) {
+           String key = keys.nextElement();
+           String value = fich.getString(key);
+           System.out.println(key + ": " + value);
+       }
+       
     }
     
 }
