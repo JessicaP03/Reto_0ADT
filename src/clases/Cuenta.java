@@ -21,10 +21,10 @@ public class Cuenta {
     private float creditLine;
     private float beginBalance;
     private LocalDate beginBalanceTime;
-    ArrayList<String> accountType;
+    private TypeAccount accountType;
 
     public Cuenta() {
-        accountType = new ArrayList<String>();
+       
     }
 
     public int getId() {
@@ -76,14 +76,15 @@ public class Cuenta {
     }
     
     
-     public void setDatosCuenta() {
+     public void setDatosCuenta(int id ) {
 
-        id = Utilidades.leerInt("Introduce el id ");
+        this.id =id;
         description = Utilidades.introducirCadena("Introduce la descripcion");
         balance = Utilidades.leerFloat("Introduce el balance ");
         creditLine = Utilidades.leerFloat("Introduce la linea de credito");
         beginBalance = Utilidades.leerFloat("introduce el balance inicial ");
         beginBalanceTime = Utilidades.leerFecha("introduce indice inicial de balance  ");
+        accountType=TypeAccount.valueOf(Utilidades.introducirCadena("dime si es estandars o account"));
      
        
     }

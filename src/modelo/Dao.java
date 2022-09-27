@@ -25,7 +25,7 @@ public interface Dao {
     
     public void consultarCuentasCliente();
     
-    public void crearCuentaCliente();
+    public void crearCuentaCliente(Cliente clte, Cuenta ct);
     
     public void agregarClienteCuenta();
     
