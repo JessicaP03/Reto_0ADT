@@ -23,7 +23,7 @@ public interface Dao {
 
     public void leerDatosCliente(String id);
     
-    public void consultarCuentasCliente();
+    public void consultarCuentasCliente(Cliente custom);
     
     public void crearCuentaCliente();
     
