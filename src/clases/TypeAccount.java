@@ -5,11 +5,13 @@
  */
 package clases;
 
+import java.io.Serializable;
+
 /**
  *
  * @author 2dam
  */
-public enum TypeAccount {
+public enum TypeAccount implements Serializable{
     
     STANDARD,CREDIT;
     

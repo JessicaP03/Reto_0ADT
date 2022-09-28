@@ -5,13 +5,14 @@
  */
 package clases;
 
+import java.io.Serializable;
 import utilidades.Utilidades;
 
 /**
  *
  * @author 2dam
  */
-public class Cliente {
+public class Cliente implements Serializable {
 
     private int id;
     private String firstName;

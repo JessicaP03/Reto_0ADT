@@ -21,11 +21,11 @@ public interface Dao {
     
     public void crearClientes(Cliente cliente);
 
-    public void leerDatosCliente(String id);
+    public void leerDatosCliente(Cliente cliente);
     
     public void consultarCuentasCliente();
     
-    public void crearCuentaCliente(Cliente clte, Cuenta ct);
+    public void crearCuentaCliente(Cliente cliente, Cuenta ct);
     
     public void agregarClienteCuenta();
     
