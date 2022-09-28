@@ -5,6 +5,7 @@
  */
 package clases;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import utilidades.Utilidades;
@@ -13,7 +14,7 @@ import utilidades.Utilidades;
  *
  * @author 2dam
  */
-public class Cuenta {
+public class Cuenta implements Serializable{
     
     private int id;
     private String description;

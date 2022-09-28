@@ -21,6 +21,8 @@ import java.util.Collection;
 import java.util.ResourceBundle;
 import javax.annotation.Resource;
 import excepciones.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -78,16 +80,18 @@ public class DaoImplementsBD implements Dao {
     //Sentencias sql para la base de datos para crear o leer datos.
     final String INSERTcliente = "INSERT INTO customer (id, city, email, firstName, lastName, middleInitial, phone, state, street,zip) VALUES ( ?, ?, ?, ?,?,?, ?, ?, ?, ?)";
     final String LeerDatosClien = "SELECT * FROM customer where id = ?";
-    final String LeerCuentaCLient = "SELECT a.* FROM account a, customer c, customer_account ca WHERE c.id = ca.customers_id AND a.id = accounts_id AND c.id = ?";
+    final String ConsulCuentaClient = "SELECT a.* FROM account a, customer c, customer_account ca WHERE c.id = ca.customers_id AND a.id = accounts_id AND c.id = ?";
     
+    private final String ConsultDatoCuenta = "SELECT account.* FROM account WHERE account.id = ?";
     final String RealizarMovimi = "INSERT INTO movement (id, ammount, balance, description, timestamp, account_id) VALUES (?, ?, ?, ?, ?, ?)";
     final String ConsultaMovimi =  "SELECT m.* FROM accoun a, movement m WHERE m.account_id = a.id AND m.id = ?";
 
+    
+    
     //Metodos que vamos a utilizar en el programa.
     @Override
-    public void crearClientes(Cliente customer) {
+    public void crearClientes(Cliente customer) {  //1
         this.openConnection();
-    
     
         try {
 
@@ -124,8 +128,8 @@ public class DaoImplementsBD implements Dao {
 
 
      @Override
-    public void leerDatosCliente(String id) {
-        ResultSet rs = null;
+    public void leerDatosCliente(String id) { //2
+                ResultSet rs = null;
 		Cliente custom = null;
 
 		this.openConnection();
@@ -172,33 +176,97 @@ public class DaoImplementsBD implements Dao {
 		}
 	
     }  
+/*
+   @Override
+     public Collection<Cuenta> consultarCuentasCliente(Cliente custom) throws LeerExcepcion{ //3
+        Cuenta account = null;
+        Collection<Cuenta> cuenta =  new ArrayList<>();
+        ResultSet rs = null;
         
-    @Override
-    public void consultarCuentasCliente(Cliente custom) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+            this.openConnection();
+  
+        try {
+            stmt = con.prepareStatement(ConsulCuentaClient);
+            stmt.setString(1, id);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                
+                account = new Cuenta();
+                account.setId(rs.getInt("account.id"));
+                account.setDescription(rs.getString("account.description"));
+                account.setBalance(rs.getFloat("account.balance"));
+                account.setCreditLine(rs.getFloat("account.creditLine"));
+                account.setBeginBalance(rs.getFloat("account.beginBalance"));
+                account.setBeginBalanceTime(rs.getTimestamp("account.beginBalanceTimestamp").toLocalDateTime());
+               // account.setType(rs.getInt("account.type"));
+                
+                cuenta.add(account);
+            }
 
-   // @Override
-    public void crearCuentaCliente(Cliente custom) {
+        } catch (Exception e) {
+            //throw new LeerExcepcion("Error al Leer");
+        }
+        try {
+            this.closeConnection();
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoImplementsBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return cuenta;
+      
+     }
+    
+    public void crearCuentaCliente(){ //4
+        
+    }
+    
+    public void agregarClienteCuenta(){ //5
         
     }
 
+ 
     @Override
-    public void agregarClienteCuenta() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public void consultarDatosCuenta(String id) throws LeerExcepcion{ //6
+        Cuenta account = null;
+        ResultSet rs = null;
+        
+            this.openConnection();
+       
+        try {
+          
+            stmt.setInt(1, id);
+            
+            rs = stmt.executeQuery(ConsultDatoCuenta);
+            
+            while (rs.next()) {
+                account = new Cuenta();
+                account.setId(id);
+                account.setDescription(rs.getString("account.description"));
+                account.setBalance(rs.getFloat("account.balance"));
+                account.setCreditLine(rs.getFloat("account.creditLine"));
+                account.setBeginBalance(rs.getFloat("account.beginBalance"));
+                account.setBeginBalanceTimestamp(rs.getLocalDate("account.beginBalanceTimestamp").toLocalDateTime());
+                //account.setAccountType(rs.getInt("account.type"));
+                
+            }
 
-    @Override
-    public void consultarDatosCuenta(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        } catch (Exception e) {
+            //throw new LeerException("Error al leer");
+        }
+        this.closeConnection();
+        
     }
+ 
+   
+    */
 
     //@Override
-    public void realizarMovimientios(Movimiento move) throws ConnectException, SQLException, CrearExcepcion {
-       //NOs manda borrar el try catch
+    public void realizarMovimientos(Movimiento move) throws SQLException, CrearExcepcion { //7
+       
         this.openConnection();
         try {
-            stmt = con.prepareStatement(RealizarMovimi); //////hay que cambiarlo
+            stmt = con.prepareStatement(RealizarMovimi);
 
 
             stmt.setFloat(1, move.getCantidad());
@@ -215,7 +283,7 @@ public class DaoImplementsBD implements Dao {
         try{
             //stmt = con.prepareStatement(updateAccountBalance);//??????
             stmt.setFloat(1,move.getBalance());
-            stmt.setLong(2,move.getId());
+           // stmt.setString(2,move.getId());
             stmt.executeUpdate();
         }catch (Exception ex){
             throw new CrearExcepcion("Error al modificar");
@@ -225,7 +293,7 @@ public class DaoImplementsBD implements Dao {
     
 
     //@Override
-    public Movimiento consultarMovimientos(String id) throws ConnectException, SQLException, CrearExcepcion {
+    public Movimiento consultarMovimientos(String id) throws SQLException, CrearExcepcion { //8
        Movimiento move = null;
         Collection<Movimiento> movimientos = new ArrayList<>();
         ResultSet rs = null;
@@ -233,7 +301,7 @@ public class DaoImplementsBD implements Dao {
         
         try {
             stmt = con.prepareStatement(ConsultaMovimi);
-            //stmt.setInt(1, id);
+            stmt.setString(1, id);
             
             rs = stmt.executeQuery();
            
@@ -242,7 +310,7 @@ public class DaoImplementsBD implements Dao {
                 move.setId(rs.getInt("movement.id"));
                 
                 move.setId(rs.getInt("movement.account_id"));
-                //move.setTimeStamp(rs.getTimestamp("movement.timestamp"));
+                //move.setTimeStamp(rs.getDate("movement.timestamp"));
                 move.setCantidad(rs.getFloat("movement.cantidad"));
                 move.setBalance(rs.getFloat("movement.balance"));
                 move.setDescription(rs.getString("movement.description"));
@@ -258,23 +326,9 @@ public class DaoImplementsBD implements Dao {
         return move;
     }
 
-    @Override
-    public void crearCuentaCliente() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    @Override
-    public void realizarMovimientios() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    @Override
-    public void consultarMovimientos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-
-    
+  
     
 }
  
