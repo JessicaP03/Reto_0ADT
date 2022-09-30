@@ -5,15 +5,16 @@
  */
 package clases;
 
+import java.io.Serializable;
 import utilidades.Utilidades;
 
 /**
  *
  * @author 2dam
  */
-public class Cliente {
+public class Cliente implements Serializable{
 
-    private int id;
+    private long id;
     private String firstName;
     private String lastName;
     private String middleIntial;
@@ -30,14 +31,14 @@ public class Cliente {
     /**
      * @return the id
      */
-    public int getId() {
+    public long getid() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -169,7 +170,7 @@ public class Cliente {
 
     public void setDatosCliente() {
 
-        id = Utilidades.leerInt("Introduce el id ");
+        id = Utilidades.leerLong("Introduce el id");
         firstName = Utilidades.introducirCadena("Introduce el 1 apellido");
         lastName = Utilidades.introducirCadena("Introduce el 2 apellido");
         middleIntial = Utilidades.introducirCadena("Introduce el nombre");
@@ -194,6 +195,11 @@ public class Cliente {
         System.out.println("tu phone es: " + phone);
         System.out.println("tu email es: " + email);
 
+    }
+    
+    @Override
+    public String toString() {
+        return "Customer{" + "Id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", middleInitial=" + middleIntial + ", street=" + street + ", city=" + city + ", state=" + state + ", zip=" + zip + ", phone=" + phone + ", email=" + email + '}';
     }
 
 }
