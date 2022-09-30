@@ -8,8 +8,7 @@ package modelo;
 import clases.Cliente;
 import clases.Cuenta;
 
-import static jdk.nashorn.internal.objects.NativeArray.map;
-import static jdk.nashorn.internal.objects.NativeDebug.map;
+
 
 /**
  *
@@ -21,7 +20,7 @@ public interface Dao {
     
     public void crearClientes(Cliente cliente);
 
-    public void leerDatosCliente(Cliente cliente);
+    public Cliente leerDatosCliente(int id);
     
     public void consultarCuentasCliente();
     

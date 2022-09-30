@@ -12,6 +12,7 @@ package main;
 import clases.Cliente;
 import modelo.Dao;
 import modelo.DaoImplementsFile;
+import utilidades.Utilidades;
 
 /**
  *
@@ -27,10 +28,9 @@ public class Aplication {
 
         int opc;
         int cont;
-        
+
         Dao dao = new DaoImplementsFile();
-        
-        
+        Cliente cliente = new Cliente();
 
         do {
             opc = menu();
@@ -86,10 +86,11 @@ public class Aplication {
     }
 
     private static void leerDatosCliente(Dao dao) {
-        Cliente clt = new Cliente();
-        clt.setId(12);
-        dao.leerDatosCliente(clt);
         
+        Cliente cliente;
+        int id = Utilidades.leerInt("Introduceme el id del que queiras saber los datos ");
+        cliente=dao.leerDatosCliente(id);
+     
     }
 
 }

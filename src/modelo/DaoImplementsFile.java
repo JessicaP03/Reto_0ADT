@@ -27,66 +27,7 @@ import utilidades.Utilidades;
  */
 public class DaoImplementsFile implements Dao {
 
-    private File fitch = new File("fichero.txt");
-
-    public void crearClientes(Cliente cliente, File fitch) {
-
-        FileOutputStream fos = null;
-        ObjectOutputStream oos = null;
-        MyObjectOutputStream moos = null;
-        boolean continuar;
-        Cliente clien;
-
-        if (fitch.exists()) {
-            try {
-                //si el fichero ya existe
-                fos = new FileOutputStream(fitch, true);
-                moos = new MyObjectOutputStream(fos);
-
-                do {
-                    clien = new Cliente();
-                    clien.setDatosCliente();
-                    moos.writeObject(clien);
-                    System.out.println("Quieres introducir mas clientes ");
-                    continuar = Utilidades.esBoolean();
-                } while (continuar);
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(DaoImplementsFile.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(DaoImplementsFile.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        } else {
-
-            try {
-                //si el fichero no existe
-                fos = new FileOutputStream(fitch);
-                moos = new MyObjectOutputStream(fos);
-
-                do {
-                    clien = new Cliente();
-                    clien.setDatosCliente();
-                    moos.writeObject(clien);
-                    System.out.println("Quieres introducir mas clientes ");
-                    continuar = Utilidades.esBoolean();
-                } while (continuar);
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(DaoImplementsFile.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(DaoImplementsFile.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-                try {
-                    oos.flush();
-                    oos.close();
-                    fos.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(DaoImplementsFile.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-
-        }
-
-    }
+    private final File fitch = new File("fichero.txt");
 
     @Override
     public void consultarCuentasCliente() {
@@ -120,7 +61,7 @@ public class DaoImplementsFile implements Dao {
         ObjectOutputStream oos = null;
         MyObjectOutputStream moos = null;
         boolean continuar;
-        Cliente clien;
+        // Cliente clien;
 
         if (fitch.exists()) {
             try {
@@ -130,9 +71,9 @@ public class DaoImplementsFile implements Dao {
 
                 do {
 
-                    moos.writeObject(cliente);
                     System.out.println("Quieres introducir mas clientes ");
                     continuar = Utilidades.esBoolean();
+                    moos.writeObject(cliente);
                 } while (continuar);
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(DaoImplementsFile.class.getName()).log(Level.SEVERE, null, ex);
@@ -145,14 +86,13 @@ public class DaoImplementsFile implements Dao {
             try {
                 //si el fichero no existe
                 fos = new FileOutputStream(fitch);
-                moos = new MyObjectOutputStream(fos);
+                oos = new MyObjectOutputStream(fos);
 
                 do {
-                    clien = new Cliente();
-                    clien.setDatosCliente();
-                    moos.writeObject(clien);
+
                     System.out.println("Quieres introducir mas clientes ");
                     continuar = Utilidades.esBoolean();
+                    oos.writeObject(cliente);
                 } while (continuar);
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(DaoImplementsFile.class.getName()).log(Level.SEVERE, null, ex);
@@ -213,26 +153,24 @@ public class DaoImplementsFile implements Dao {
     }
 
     @Override
-    public void leerDatosCliente(Cliente cliente) {
+    public Cliente leerDatosCliente(int id) {
         FileInputStream fis;
         ObjectInputStream ois = null;
-        Cliente clien;
+        Cliente cliente;
         int numCliente;
-        int id;
+        // int id;
 
         numCliente = Utilidades.calculoFichero(fitch);
-        id = Utilidades.leerInt("Introduceme el id del que queiras saber los datos ");
+        // id = Utilidades.leerInt("Introduceme el id del que queiras saber los datos ");
         try {
             fis = new FileInputStream(fitch);
             ois = new ObjectInputStream(fis);
 
             for (int i = 0; i < numCliente; i++) {
-                clien = (Cliente) ois.readObject();
+                cliente = (Cliente) ois.readObject();
 
-                if (clien.getId() == id) {
-                    clien.getDatosCliente();
-                }else{
-                    System.out.println("su id no existe");
+                if (cliente.getId() == id) {
+                    return cliente;
                 }
 
             }
@@ -249,6 +187,7 @@ public class DaoImplementsFile implements Dao {
                 Logger.getLogger(DaoImplementsFile.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return null;
 
     }
 
