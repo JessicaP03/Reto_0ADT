@@ -10,7 +10,6 @@ import java.io.ObjectInputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import javax.rmi.CORBA.Util;
 
 public class Utilidades {
 
@@ -169,7 +168,22 @@ public class Utilidades {
 		}while(error);
 		return num;
 	}
-	
+	public static Long leerLong(String mensaje){
+		Long num=null;
+		boolean error;
+		System.out.println(mensaje);
+		do{
+			error=false;
+			try{
+				num=Long.parseLong(introducirCadena());
+			}
+			catch(NumberFormatException e){
+				System.out.println("Error, el dato no es numérico. Introduce de nuevo: ");
+				error=true;
+			}
+		}while(error);
+		return num;
+	}
 	public static int leerInt(int x, int y){
 		int num;
 		boolean error;

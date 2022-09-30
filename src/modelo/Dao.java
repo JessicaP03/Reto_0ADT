@@ -7,7 +7,9 @@ package modelo;
 
 import clases.Cliente;
 import clases.Cuenta;
+import clases.Movimiento;
 import static com.sun.org.apache.xalan.internal.lib.ExsltDynamic.map;
+import java.util.Collection;
 import static jdk.nashorn.internal.objects.NativeArray.map;
 import static jdk.nashorn.internal.objects.NativeDebug.map;
 
@@ -15,27 +17,13 @@ import static jdk.nashorn.internal.objects.NativeDebug.map;
  *
  * @author 2dam
  */
-
-//FALTAN LOS DATOS QUE HAY QUE PASAR EN LOS DATOS 
 public interface Dao {
-    
-    public void crearClientes(Cliente cliente);
-
-    public void leerDatosCliente(String id);
-    
-    public void consultarCuentasCliente();
-    
-    public void crearCuentaCliente();
-    
-    public void agregarClienteCuenta();
-    
-    public void consultarDatosCuenta(String id);
-    
-    public void realizarMovimientios();
-    
-    public void consultarMovimientos();
-    
-   
-    
-  
+   public Long createCustomer(Cliente cust)throws Exception;
+   public Cliente consultCustomer(Long id)throws Exception;
+   public Collection<Cuenta> consultAccounts(Long idCustom)throws Exception;
+   public Long createAccount(Long id, Cuenta account)throws Exception;
+   public void createCustomerAccount(Long id, Long id_acc)throws Exception;
+   public Cuenta consultDataAccount(Long id)throws Exception;
+   public void createMovement(Movimiento move)throws Exception;
+   public Collection<Movimiento> consultMovements(Long id)throws Exception;
 }

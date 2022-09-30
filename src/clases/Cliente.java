@@ -5,14 +5,15 @@
  */
 package clases;
 
+import java.io.Serializable;
 import utilidades.Utilidades;
 
 /**
  *
  * @author 2dam
  */
-public class Cliente {
-    //atributos
+public class Cliente implements Serializable{
+
     private int id;
     private String firstName;
     private String lastName;
@@ -24,14 +25,12 @@ public class Cliente {
     private int phone;
     private String email;
 
-    //constructor
     public Cliente() {
     }
 
     /**
      * @return the id
      */
-    //getters y setters
     public int getId() {
         return id;
     }
@@ -196,6 +195,11 @@ public class Cliente {
         System.out.println("tu phone es: " + phone);
         System.out.println("tu email es: " + email);
 
+    }
+    
+    @Override
+    public String toString() {
+        return "Customer{" + "Id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", middleInitial=" + middleIntial + ", street=" + street + ", city=" + city + ", state=" + state + ", zip=" + zip + ", phone=" + phone + ", email=" + email + '}';
     }
 
 }

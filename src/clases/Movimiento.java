@@ -5,7 +5,9 @@
  */
 package clases;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import utilidades.Utilidades;
 
@@ -14,76 +16,92 @@ import utilidades.Utilidades;
  * @author 2dam
  */
 public class Movimiento {
-    //atributos
-    private int id;
-    private LocalDate timeStamp;
-    private float cantidad;
+    private long id;
+    private long idCuenta;
+    private LocalDateTime timestamp;
+    private float amount;
     private float balance;
     private String description;
 
-    //constructor
-    public Movimiento() {
+    
+    public Movimiento(){
+        
     }
 
-    //getters y setters
-    public int getId() {
+    public Movimiento(long id, long idAccount, LocalDateTime timestamp, float amount, float balance, String description) {
+        this.id = id;
+        this.idCuenta = idCuenta;
+        this.timestamp = timestamp;
+        this.amount = amount;
+        this.balance = balance;
+        this.description = description;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public LocalDate getTimeStamp() {
-        return timeStamp;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public float getCantidad() {
-        return cantidad;
+    public long getIdAccount() {
+        return idCuenta;
+    }
+
+    public void setIdAccount(long idAccount) {
+        this.idCuenta = idAccount;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public float getAmount() {
+        return amount;
+    }
+
+    public void setAmount(float amount) {
+        this.amount = amount;
     }
 
     public float getBalance() {
         return balance;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setTimeStamp(LocalDate timeStamp) {
-        this.timeStamp = timeStamp;
-    }
-
-    public void setCantidad(float cantidad) {
-        this.cantidad = cantidad;
-    }
-
     public void setBalance(float balance) {
         this.balance = balance;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
+    
 
-    public void setDatosCuenta() {
 
-        id = Utilidades.leerInt("Introduce el id ");
-        timeStamp = Utilidades.leerFecha("Introduce la fecha");
-        cantidad = Utilidades.leerFloat("Introduce el balance ");
-        balance = Utilidades.leerFloat("Introduce la linea de credito ");
-        description = Utilidades.introducirCadena("Introduce la descripcion ");
-
+    public void setDatosMovimiento(Long id,float balance) {
+        idCuenta = id;
+        amount = Utilidades.leerFloat("Itroduce the amount of the movement");
+        this.balance=balance+amount;
+        description = Utilidades.introducirCadena("Introduce the description of the movement");
     }
 
-    public void getDatosCuenta() {
-
-        System.out.println("tu id es: " + id);
-        System.out.println("tu timeStamp es: " + timeStamp);
-        System.out.println("tu cantidad es: " + cantidad);
-        System.out.println("tu balance es: " + balance);
-        System.out.println("tu description es: " + description);
-
+    public void getDatosMovimiento() {
+        System.out.println("Information about the movement");
+        System.out.println("Id of the movement:" + this.id);
+        System.out.println("Id of the account:" + this.idCuenta);
+        System.out.println("Time stamp of the movement:" + this.timestamp);
+        System.out.println("Amount of the movement: " + this.amount);
+        System.out.println("Balance of the movement:" + this.balance);
+        System.out.println("Description of the movement:" + this.description);
     }
 
 }
