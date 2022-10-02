@@ -25,12 +25,15 @@ import utilidades.Utilidades;
 
 /**
  *
- * @author 2dam
+ * @author Grupo JJda
+ * En esta clase implementamos los metodos para el fichero
  */
 public class DaoImplementsFile implements Dao {
 
     private final File fitch = new File("fichero.txt");
-    
+/**
+* Crear clientes
+*/
     public void crearClientes(Cliente cliente) {
 
         FileOutputStream fos = null;
@@ -87,7 +90,9 @@ public class DaoImplementsFile implements Dao {
         }
 
     }
-
+/**
+* metodo para comprobar ya hay una cuenta existente o no
+*/
     private boolean existeCuenta(int id, File fitch) {
 
         boolean encontrado = false;
@@ -128,46 +133,9 @@ public class DaoImplementsFile implements Dao {
         return encontrado;
     }
 
-    
-    public Cliente leerDatosCliente(int id) {
-        FileInputStream fis;
-        ObjectInputStream ois = null;
-        Cliente cliente;
-        int numCliente;
-        // int id;
-
-        numCliente = Utilidades.calculoFichero(fitch);
-        // id = Utilidades.leerInt("Introduceme el id del que queiras saber los datos ");
-        try {
-            fis = new FileInputStream(fitch);
-            ois = new ObjectInputStream(fis);
-
-            for (int i = 0; i < numCliente; i++) {
-                cliente = (Cliente) ois.readObject();
-
-                if (cliente.getid() == id) {
-                    return cliente;
-                }
-
-            }
-
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(DaoImplementsFile.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException | ClassNotFoundException ex) {
-            Logger.getLogger(DaoImplementsFile.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                ois.close();
-
-            } catch (IOException ex) {
-                Logger.getLogger(DaoImplementsFile.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return null;
-
-    }
-
-    
+/**
+* Crear una cuenta para un cliente
+*/    
     public void crearCuentaCliente(Cliente clte, Cuenta ct) {
         //  ArrayList<Cuenta> cuentas = new ArrayList<>();
         Cuenta datosC;
@@ -237,15 +205,104 @@ public class DaoImplementsFile implements Dao {
         }
 
     }
-
+/**
+* Crear un cliente
+*/
     @Override
     public Long createCustomer(Cliente cust) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        MyObjectOutputStream moos = null;
+        boolean continuar;
+        // Cliente clien;
 
+        if (fitch.exists()) {
+            try {
+                //si el fichero ya existe
+                fos = new FileOutputStream(fitch, true);
+                moos = new MyObjectOutputStream(fos);
+
+                do {
+
+                    System.out.println("Quieres introducir mas clientes ");
+                    continuar = Utilidades.esBoolean();
+                    moos.writeObject(cust);
+                } while (continuar);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(DaoImplementsFile.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(DaoImplementsFile.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else {
+
+            try {
+                //si el fichero no existe
+                fos = new FileOutputStream(fitch);
+                oos = new ObjectOutputStream(fos);
+
+                do {
+
+                    System.out.println("Quieres introducir mas clientes ");
+                    continuar = Utilidades.esBoolean();
+                    oos.writeObject(cust);
+                } while (continuar);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(DaoImplementsFile.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(DaoImplementsFile.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    oos.flush();
+                    oos.close();
+                    fos.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(DaoImplementsFile.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        }
+        return cust.getid();
+    }
+/**
+* Consultar un cliente
+*/
     @Override
     public Cliente consultCustomer(long id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        FileInputStream fis;
+        ObjectInputStream ois = null;
+        Cliente cliente;
+        int numCliente=1;
+
+
+        numCliente = Utilidades.calculoFichero(fitch);
+
+        try {
+            fis = new FileInputStream(fitch);
+            ois = new ObjectInputStream(fis);
+
+            for (int i = 0; i < numCliente; i++) {
+                cliente = (Cliente) ois.readObject();
+
+                if (cliente.getid() == id) {
+                    return cliente;
+                }
+
+            }
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DaoImplementsFile.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(DaoImplementsFile.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                ois.close();
+
+            } catch (IOException ex) {
+                Logger.getLogger(DaoImplementsFile.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
     }
 
     @Override

@@ -1,6 +1,4 @@
-/*
- * Esta clase esta destinada a mostrar un menu al usuario
- */
+
 package main;
 
 import clases.Cliente;
@@ -8,28 +6,40 @@ import clases.Cuenta;
 import clases.Movimiento;
 import static java.awt.SystemColor.control;
 import java.util.Collection;
+import java.util.ResourceBundle;
 import modelo.*;
 import utilidades.Utilidades;
 
 
-/**
- *
- * @author Alain, Jonathan
+/*
+ * @author Grupo JJDA
+ * Esta clase esta destinada a mostrar un menu al usuario y a llamar a los metodos
  */
 public class Aplication {
-
-    /**
-     * @param args the command line arguments
-     */
+/*
+ * Aqui decidimos si los datos se implementaran en el fichero o la base de datos
+ *Para decidir si se va a trabajar desde la base de datos o fichero, en el archivo de propiedades tendremos que cambiar el valor de 'Modo_BD'
+ */
     public static void main(String[] args) throws Exception {
-        
+        ResourceBundle data;
+        String BD = "BD";
+        String File = "Fich";
+        /**
+         * Modelo donde dependiendo de la opcion ejecuta una de las formas
+         * @see menuPrincipal();
+         */
+       String forma = ResourceBundle.getBundle("modelo.configuracion").getString("Modo_BD");
+       if(BD.equals(forma)){
+           Dao dataBD = new DaoImplementsBD();
+           menuPrincipal(dataBD);
+       }else{
+           Dao dataFile = new DaoImplementsFile();
+           menuPrincipal(dataFile);
+       }
         /**
          * Menu en el cual el usuario podrá elegir la opción que desee
          * @see menuPrincipal();
          */
-       //Dao dataFile = new DaoImplementsFile();
-       Dao dataBD = new DaoImplementsBD();
-       menuPrincipal(dataBD);
     }
     
 
@@ -118,7 +128,9 @@ public class Aplication {
             }
         }while (opcMenu != 9);
     }
-
+/*
+ * Aqui se hacen las llamadas a los metodos
+ */
     private static void createCustomer(Dao data) throws Exception {
         Cliente cus;
         Long id_cus;

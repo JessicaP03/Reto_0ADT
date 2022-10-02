@@ -8,14 +8,10 @@ package modelo;
 import clases.Cliente;
 import clases.Cuenta;
 import clases.Movimiento;
-//import static com.sun.org.apache.xalan.internal.lib.ExsltDynamic.map;
 import java.util.Collection;
-//import static jdk.nashorn.internal.objects.NativeArray.map;
-//import static jdk.nashorn.internal.objects.NativeDebug.map;
-
-/**
- *
- * @author 2dam
+/*
+ * @author Grupo JJDA
+ * Esta es la interfaz Dao, donde se recogen los metodos
  */
 public interface Dao {
    public Long createCustomer(Cliente cust)throws Exception;

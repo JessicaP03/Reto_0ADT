@@ -24,11 +24,10 @@ import excepciones.*;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-/**
- *
- * @author 2dam
+/*
+ * @author Grupo JJDA
+ *En esta clase implementamos los metodos para la base datos
  */
-
 public class DaoImplementsBD implements Dao {
 
     private Connection con = null;
@@ -48,7 +47,9 @@ public class DaoImplementsBD implements Dao {
         this.userBD = this.configFile.getString("DBUser");
         this.passwordBD = this.configFile.getString("DBPass");
     }
-
+/*
+ * Conectamos con la BD
+ */    
     public void conectar() throws DaoExcepcion {
         try {
             Class.forName(this.driverBD);
@@ -59,7 +60,9 @@ public class DaoImplementsBD implements Dao {
             throw new DaoExcepcion("No se ha encontrado el driver para la conexion" + e1.getMessage());
         }
     }
-
+/*
+ * Nos desconectamos de la BD
+ */
     public void desconectar() throws DaoExcepcion {
         try {
             if (stmt != null) {
@@ -72,7 +75,9 @@ public class DaoImplementsBD implements Dao {
             throw new DaoExcepcion("Error de SQL " + e.getMessage());
         }
     }
-
+/*
+ * Sentencias SQL para cada metodo
+ */
     private final String createCustomer = "INSERT INTO customer (city,email,firstName,lastName,middleInitial,phone,state,street,zip) VALUES (?,?,?,?,?,?,?,?,?)";
     private final String consultCustomer = "SELECT customer.* FROM customer WHERE customer.id = ?";
     private final String consultAccounts = "SELECT account.* FROM customer_account, account WHERE customer_account.customers_id = ? AND customer_account.accounts_id = account.id";
@@ -83,6 +88,10 @@ public class DaoImplementsBD implements Dao {
     private final String consultMovement = "SELECT movement.* FROM account, movement WHERE movement.account_id = account.id AND account.id = ?";
     private final String updateAccountBalance = "UPDATE account SET account.balance = ? WHERE account.id = ?";
 
+    
+/**
+* Crear cliente
+*/
     @Override
     public Long createCustomer(Cliente clie) throws CrearExcepcion, LeerExcepcion, DaoExcepcion {
         Long id_cus=null;
@@ -119,7 +128,9 @@ public class DaoImplementsBD implements Dao {
         this.desconectar();
         return id_cus;
     }
-
+/**
+* Consultar info de cliente
+*/
     @Override
     public Cliente consultCustomer(long id) throws LeerExcepcion, CrearExcepcion, DaoExcepcion {
         Cliente clie = null;
@@ -156,7 +167,9 @@ public class DaoImplementsBD implements Dao {
         
         return clie;
     }
-
+/**
+* Consultar cuentas de un cliente
+*/
     @Override
     public Collection<Cuenta> consultAccounts(Long idCustom) throws LeerExcepcion, CrearExcepcion, DaoExcepcion {
         
@@ -195,7 +208,9 @@ public class DaoImplementsBD implements Dao {
         return ccunt;
         
     }
-
+/**
+* Crear una cuenta para cliente
+*/
     @Override
     public Long createAccount(Long id, Cuenta cunt) throws CrearExcepcion, LeerExcepcion, DaoExcepcion {
         Long id_acc = null;
@@ -230,7 +245,9 @@ public class DaoImplementsBD implements Dao {
         createCustomerAccount(id, id_acc);
         return id_acc;
     }
-    
+/**
+* Agregar cliente a cuenta
+*/    
     @Override
     public void createCustomerAccount(Long id, Long id_acc) throws CrearExcepcion, LeerExcepcion, DaoExcepcion {
         
@@ -252,7 +269,9 @@ public class DaoImplementsBD implements Dao {
         }
         this.desconectar();
     }
-
+/**
+* Consultar datos de una cuenta
+*/
     @Override
     public Cuenta consultDataAccount(Long id) throws CrearExcepcion, LeerExcepcion, DaoExcepcion {
         
@@ -288,7 +307,9 @@ public class DaoImplementsBD implements Dao {
         
         return cunt;
     }
-
+/**
+* Hacer un movimiento
+*/
     @Override
     public void createMovement(Movimiento move) throws CrearExcepcion, ActualizarExcepcion, LeerExcepcion, DaoExcepcion {
         
@@ -323,7 +344,9 @@ public class DaoImplementsBD implements Dao {
         }
         this.desconectar();
     }
-
+/**
+* Consultar movimientos
+*/
     @Override
     public Collection<Movimiento> consultMovements(Long id) throws CrearExcepcion, LeerExcepcion, DaoExcepcion {
         Movimiento move = null;

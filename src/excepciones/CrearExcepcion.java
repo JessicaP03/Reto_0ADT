@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package excepciones;
-
+    /**
+     * Esta clase es para una de las excepciones de la base de datos
+     */
 public class CrearExcepcion extends Exception{
 
 	/**

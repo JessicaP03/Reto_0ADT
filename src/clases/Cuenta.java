@@ -13,10 +13,12 @@ import utilidades.Utilidades;
 
 /**
  *
- * @author 2dam
+ * @author Grupo JJDA
  */
 public class Cuenta implements Serializable{
-    
+    /**
+     * atributos
+     */
     private long id;
     private String description;
     private float balance;
@@ -24,7 +26,9 @@ public class Cuenta implements Serializable{
     private float beginBalance;
     private LocalDateTime beginBalanceTimestamp;
     private AccountType type;
-    
+    /**
+     * constructores
+     */
     public enum AccountType {
 
         standard, credit
@@ -44,7 +48,9 @@ public class Cuenta implements Serializable{
         this.type = type;
     }
     
-
+    /**
+     * getters y setters
+     */
     public long getId() {
         return id;
     }

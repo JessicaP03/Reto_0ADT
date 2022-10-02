@@ -13,9 +13,12 @@ import utilidades.Utilidades;
 
 /**
  *
- * @author 2dam
+ * @author Grupo JJDA
  */
 public class Movimiento {
+    /**
+     * atributos
+     */
     private long id;
     private long idCuenta;
     private LocalDateTime timestamp;
@@ -23,7 +26,9 @@ public class Movimiento {
     private float balance;
     private String description;
 
-    
+    /**
+     * constructores
+     */
     public Movimiento(){
         
     }
@@ -36,7 +41,9 @@ public class Movimiento {
         this.balance = balance;
         this.description = description;
     }
-
+    /**
+     * getters y setters
+     */
     public long getId() {
         return id;
     }
@@ -89,19 +96,18 @@ public class Movimiento {
 
     public void setDatosMovimiento(Long id,float balance) {
         idCuenta = id;
-        amount = Utilidades.leerFloat("Itroduce the amount of the movement");
+        amount = Utilidades.leerFloat("Introduce la cantidad de dinero para el movimiento");
         this.balance=balance+amount;
-        description = Utilidades.introducirCadena("Introduce the description of the movement");
+        description = Utilidades.introducirCadena("Introduce la descripcion del movimiento");
     }
 
     public void getDatosMovimiento() {
-        System.out.println("Information about the movement");
-        System.out.println("Id of the movement:" + this.id);
-        System.out.println("Id of the account:" + this.idCuenta);
-        System.out.println("Time stamp of the movement:" + this.timestamp);
-        System.out.println("Amount of the movement: " + this.amount);
-        System.out.println("Balance of the movement:" + this.balance);
-        System.out.println("Description of the movement:" + this.description);
+        System.out.println("Id del movimiento:" + this.id);
+        System.out.println("Id de la cuenta implicada:" + this.idCuenta);
+        System.out.println("Timestamp del movimiento:" + this.timestamp);
+        System.out.println("cantidad de dinero movida: " + this.amount);
+        System.out.println("Balance del movimiento:" + this.balance);
+        System.out.println("Descripcion del movimiento:" + this.description);
     }
 
 }
