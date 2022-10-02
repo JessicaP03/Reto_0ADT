@@ -19,7 +19,7 @@ import java.util.Collection;
  */
 public interface Dao {
    public Long createCustomer(Cliente cust)throws Exception;
-   public Cliente consultCustomer(Long id)throws Exception;
+   public Cliente consultCustomer(int id)throws Exception;
    public Collection<Cuenta> consultAccounts(Long idCustom)throws Exception;
    public Long createAccount(Long id, Cuenta account)throws Exception;
    public void createCustomerAccount(Long id, Long id_acc)throws Exception;

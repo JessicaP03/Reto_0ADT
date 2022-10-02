@@ -31,7 +31,7 @@ import java.util.logging.Logger;
 
 public class DaoImplementsBD implements Dao {
 
-      private Connection con = null;
+    private Connection con = null;
     private Properties prope;
     private PreparedStatement stmt = null;
 
@@ -121,7 +121,7 @@ public class DaoImplementsBD implements Dao {
     }
 
     @Override
-    public Cliente consultCustomer(Long id) throws LeerExcepcion, CrearExcepcion, DaoExcepcion {
+    public Cliente consultCustomer(int id) throws LeerExcepcion, CrearExcepcion, DaoExcepcion {
         Cliente clie = null;
         ResultSet rs = null;
         try {
@@ -131,7 +131,7 @@ public class DaoImplementsBD implements Dao {
         }
         try {
             stmt = con.prepareStatement(consultCustomer);
-            stmt.setLong(1, id);
+            stmt.setInt(1, id);
             
             rs = stmt.executeQuery();
             
