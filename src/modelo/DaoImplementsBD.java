@@ -120,7 +120,7 @@ public class DaoImplementsBD implements Dao {
         return id_cus;
     }
 
-    @Override
+    
     public Cliente consultCustomer(int id) throws LeerExcepcion, CrearExcepcion, DaoExcepcion {
         Cliente clie = null;
         ResultSet rs = null;
