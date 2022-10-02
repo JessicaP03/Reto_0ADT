@@ -244,7 +244,7 @@ public class DaoImplementsFile implements Dao {
     }
 
     @Override
-    public Cliente consultCustomer(int id) throws Exception {
+    public Cliente consultCustomer(long id) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

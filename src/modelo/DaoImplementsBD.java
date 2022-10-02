@@ -42,7 +42,7 @@ public class DaoImplementsBD implements Dao {
     private String passwordBD;
 
     public DaoImplementsBD() {
-        this.configFile = ResourceBundle.getBundle("control.config");
+        this.configFile = ResourceBundle.getBundle("modelo.configuracion");
         this.driverBD = this.configFile.getString("Driver");
         this.urlDB = this.configFile.getString("Conn");
         this.userBD = this.configFile.getString("DBUser");
@@ -121,7 +121,7 @@ public class DaoImplementsBD implements Dao {
     }
 
     @Override
-    public Cliente consultCustomer(int id) throws LeerExcepcion, CrearExcepcion, DaoExcepcion {
+    public Cliente consultCustomer(long id) throws LeerExcepcion, CrearExcepcion, DaoExcepcion {
         Cliente clie = null;
         ResultSet rs = null;
         try {
@@ -131,7 +131,7 @@ public class DaoImplementsBD implements Dao {
         }
         try {
             stmt = con.prepareStatement(consultCustomer);
-            stmt.setInt(1, id);
+            stmt.setLong(1, id);
             
             rs = stmt.executeQuery();
             
